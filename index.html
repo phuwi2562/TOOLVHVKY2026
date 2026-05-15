@@ -177,6 +177,14 @@
         <button type="button" data-page-group="core">บทสำคัญ</button>
         <button type="button" data-page-group="app">แอป อสม.</button>
       </div>
+      <div class="page-search" role="search">
+        <label for="pageSearchInput">ค้นหาภาพหน้าหนังสือ</label>
+        <div class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="pageSearchInput" type="search" inputmode="search" placeholder="พิมพ์เลขหน้า หรือคำ เช่น ความดัน น้ำตาล อสค. หน้า 35">
+        </div>
+        <p id="pageSearchStatus" class="page-search-status" aria-live="polite"></p>
+      </div>
       <div class="pages-grid" id="pagesGrid" aria-label="หน้าคู่มือต้นฉบับ"></div>
     </section>
   </main>
