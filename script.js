@@ -51,9 +51,11 @@ const dialogImage = document.querySelector("#dialogImage");
 const dialogCaption = document.querySelector("#dialogCaption");
 const activitySelect = document.querySelector("#issueSelect");
 const activityOutput = document.querySelector("#activityOutput");
+const installAppButton = document.querySelector("#installAppButton");
 
 let activePageGroup = "core";
 let pageSearchQuery = "";
+let deferredInstallPrompt = null;
 
 function normalize(value) {
   return (value || "").trim().toLowerCase().replace(/\s+/g, " ");
@@ -174,6 +176,31 @@ document.querySelectorAll("#checklist input").forEach((input) => {
 });
 
 activitySelect?.addEventListener("change", updateActivity);
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installAppButton?.classList.remove("hidden");
+});
+
+installAppButton?.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installAppButton.classList.add("hidden");
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  installAppButton?.classList.add("hidden");
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  });
+}
 
 renderPages("core");
 updateActivity();

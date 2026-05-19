@@ -470,6 +470,21 @@ footer {
   display: none !important;
 }
 
+.install-button {
+  position: fixed;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 20;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 16px;
+  color: white;
+  background: var(--teal);
+  box-shadow: 0 12px 28px rgba(15, 76, 72, .28);
+  font-weight: 800;
+  cursor: pointer;
+}
+
 @media (min-width: 720px) {
   .app-header {
     padding: 36px 30px 28px;
